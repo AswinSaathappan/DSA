@@ -1,0 +1,207 @@
+#include<stdio.h>
+#include<stdlib.h>
+void traverse();
+void insertbegin();
+void insertmiddle();
+void insertend();
+void deletebegin();
+void deletemiddle();
+void deleteend();
+void count();
+struct node
+{
+    int info;
+    struct node* next;
+};
+struct node *p,*head=NULL,*old,*n,*s;
+int main()
+{   
+    int choice;
+    printf("\nLINKED LIST MENU DRIVEN PROGRAM\n");
+    printf("1.CREATION\n");
+    printf("2.DISPLAY\n");
+    printf("3.INSERT AT THE BEGIN\n");
+    printf("4.INSERT IN THE MIDDLE\n");
+    printf("5.INSERT AT THE END\n");
+    printf("6.DELETE AT THE BEGIN\n");
+    printf("7.DELETE IN THE MIDDLE\n");
+    printf("8.DELETE AT THE END\n");
+    printf("9.COUNT THE NODES\n");
+  while(1)
+  {
+    printf("Enter choice:");
+    scanf("%d",&choice);
+    
+    switch(choice)
+    {
+        case 1:
+        {
+            head = (struct node*)malloc(sizeof(struct node));
+            int num;
+            printf("Enter the number of nodes:");
+            scanf("%d",&num);
+            scanf("%d",&head->info);
+            head->next = NULL;
+            old=head;
+            
+            for(int i=1;i<num;i++)
+            {
+                n = (struct node*)malloc(sizeof(struct node));
+                scanf("%d",&n->info);
+                n->next = NULL;
+                old->next = n;
+                old=n;
+            }
+            break;
+        }
+        
+        case 2:
+           traverse();
+           break;
+           
+        case 3:
+           insertbegin();
+           break;
+           
+        case 4:
+           insertmiddle();
+           break;
+           
+        case 5:
+           insertend();
+           break;
+           
+        case 6:
+           deletebegin();
+           break;
+           
+        case 7:
+           deletemiddle();
+           break;
+           
+        case 8:
+           deleteend();
+           break;
+           
+        case 9:
+        count();
+        break;
+        
+        case 10:
+            exit(0);
+            break;
+            
+        default:
+            printf("Invalid choice");
+    }
+  }
+}
+
+void traverse()
+{
+    p = head;
+    printf("LINKED LIST:\n");
+    while(p!=NULL)
+    {
+        printf("%d->",p->info);
+        p = p->next;
+    }
+    printf("NULL");
+}
+
+void insertbegin()
+{
+    int ele;
+    printf("Enter the element:");
+    scanf("%d",&ele);
+    n = (struct node*)malloc(sizeof(struct node));
+    n->info = ele;
+    n->next = head;
+    head=n;
+    traverse();
+}
+
+void insertmiddle()
+{
+    int i,pos,ele;
+    printf("Enter position and element:");
+    scanf("%d %d",&pos,&ele);
+    p = old = head;
+    n = (struct node*)malloc(sizeof(struct node));
+    n->info = ele;
+    for(int i=1;i<pos;i++)
+    {
+        old=p;
+        p=p->next;
+    }
+    old->next = n;
+    n->next = p;
+    traverse();
+}
+
+void insertend()
+{
+    int ele;
+    printf("Enter the element:");
+    scanf("%d",&ele);
+    n = (struct node*)malloc(sizeof(struct node));
+    n->info = ele;
+    p = head;
+    while(p->next  != NULL)
+    {
+        p=p->next;
+    }
+    p->next = n;
+    n->next = NULL;
+    traverse();
+}
+
+void deletebegin()
+{
+    p = head;
+    head = head->next;
+    free(p);
+    traverse();
+}
+
+void deletemiddle()
+{
+    int i,pos;
+    printf("Enter vposition to be deleted:");
+    scanf("%d",&pos);
+    p = old = head;
+    for(i=1 ; i<pos ; i++)
+    {
+        old = p;
+        p = p->next;
+    }
+    s = p->next;
+    old->next = s;
+    free(p);
+    traverse();
+}
+
+void deleteend()
+{
+    p = old = head;
+    while(p->next != NULL)
+    {
+        old = p ;
+        p = p->next;
+    }
+    old->next = NULL;
+    free(p);
+    traverse();
+}
+
+void count()
+{
+    int c = 0;
+    p = head;
+    while(p!=NULL)
+    {
+        c++;
+        p=p->next;
+    }
+    printf("Number of nodes: %d",c);
+}

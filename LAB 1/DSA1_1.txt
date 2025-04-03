@@ -1,0 +1,36 @@
+#include <stdio.h>
+
+int main() {
+    int marks[5];
+    int sum = 0;
+    float average;
+    int rank[5];
+
+    // Input marks for each student
+    for (int i = 0; i < 5; ++i) {
+        printf("Enter marks for student %d: ", i + 1);
+        scanf("%d", &marks[i]);
+        sum += marks[i];
+    }
+
+    // Calculate the average marks
+    average = (float)sum / 5.0;
+
+    // Determine the rank of each student
+    for (int i = 0; i < 5; ++i) {
+        rank[i] = 1; // Assume each student is ranked first initially
+        for (int j = 0; j < 5; ++j) {
+            if (marks[j] > marks[i]) {
+                ++rank[i]; // Another student has higher marks
+            }
+        }
+    }
+
+    // Display the results
+    printf("\nAverage marks: %.2f\n", average);
+    for (int i = 0; i < 5; ++i) {
+        printf("Student %d: Marks = %d, Rank = %d\n", i + 1, marks[i], rank[i]);
+    }
+
+    return 0;
+}

@@ -1,0 +1,31 @@
+#include <stdio.h>
+
+int main() {
+    int num, reversed = 0;
+
+    // Input the number
+    printf("Enter an integer: ");
+    scanf("%d", &num);
+
+    // Check if the number is negative
+    if (num < 0) {
+        num *= -1; // Make it positive
+    }
+
+    // Reverse the number
+    while (num != 0) {
+        int digit = num % 10;
+        reversed = reversed * 10 + digit;
+        num /= 10;
+    }
+
+    // Print the individual digits
+    printf("Individual digits: ");
+    while (reversed != 0) {
+        int digit = reversed % 10;
+        printf("%d ", digit);
+        reversed /= 10;
+    }
+
+    return 0;
+}
